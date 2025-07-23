@@ -1,0 +1,76 @@
+﻿@model List<WebApplication1.Models.Student>
+@{
+
+    ViewData["Title"] = "Student List";
+    var divisions = new[] { "A", "B", "C", "D", "E", "F" };
+    string selected = ViewBag.SelectedDivision as string;
+    int serial = 1;
+}
+
+<div class="text-center mb-4">
+    <h1 style="font-weight: bold;"> श्री शाहू कुमार भवन बहुउद्देशीय प्रशाला </h1>
+<img src="~/School.jpeg" height="200" width="1200 " />
+
+</div>
+
+
+<style>
+    .female-row {
+        color: brown;
+    }
+</style>
+
+<h2 class="mb-4">विद्यार्थी यादी </h2>
+
+<form method="get" asp-controller="Home" asp-action="Index" class="mb-3">
+    <label for="division" class="form-label">Select Division:</label>
+    <select name="division" id="division" onchange="this.form.submit()" class="form-select" style="width: 200px;">
+        <option value="">-- All Divisions --</option>
+        @foreach (var div in divisions)
+        {
+            <option value="@div" selected="@(div == selected ? "selected" : null)">@div</option>
+        }
+    </select>
+</form>
+
+@if (Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>अ.क्र </th>
+                <th>नाव </th>
+                <th>मो नं 1 </th>
+                <th>मो नं 2</th>
+                
+                <th>लिंग </th>
+                <th>उत्तीर्ण वर्ष </th>
+                <th>तुकडी </th>
+              <th>Edit</th>   
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr class="@(student.Gender == "Female" ? "female-row" : "")">
+                    <td>@serial</td>
+                    <td>@student.Name</td>
+                    <td>@(string.IsNullOrWhiteSpace(student.Mob1) ? "-" : student.Mob1)</td>
+                    <td>@(string.IsNullOrWhiteSpace(student.Mob2) ? "-" : student.Mob2)</td>
+                   
+                    <td>@student.Gender</td>
+                    <td>@student.PsYear</td>
+                    <td>@student.Division</td>
+                  <td>
+                      <a asp-controller="Home" asp-action="Edit" asp-route-name="@student.Name" class="btn btn-sm btn-primary">Edit</a>
+                   </td>
+                </tr>
+                serial++;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">No students found for the selected division.</p>
+}

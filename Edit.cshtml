@@ -1,0 +1,42 @@
+﻿ @model WebApplication1.Models.Student
+
+<h2>Edit Student</h2>
+
+<form asp-action="Edit" method="post" class="mt-3">
+    <input type="hidden" asp-for="Name" />
+
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input asp-for="Name" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Mob1</label>
+        <input asp-for="Mob1" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Mob2</label>
+        <input asp-for="Mob2" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">PsYear</label>
+        <input asp-for="PsYear" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Division</label>
+        <input asp-for="Division" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Gender</label>
+        <select asp-for="Gender" class="form-select">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
